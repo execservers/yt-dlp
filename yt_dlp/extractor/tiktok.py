@@ -556,7 +556,7 @@ class TikTokBaseIE(InfoExtractor):
                 is_private='Private' in labels,
                 needs_subscription='Friends only' in labels,
                 is_unlisted='Followers only' in labels),
-            '_format_sort_fields': ('quality', 'codec', 'size', 'br'),
+            '_format_sort_fields': ('vcodec:h264', 'quality', 'size', 'br'),
         }
 
     def _extract_web_formats(self, aweme_detail):
@@ -658,6 +658,7 @@ class TikTokBaseIE(InfoExtractor):
             'formats': None if extract_flat else self._extract_web_formats(aweme_detail),
             'subtitles': None if extract_flat else self.extract_subtitles(aweme_detail, video_id, None),
             'http_headers': {'Referer': webpage_url},
+            '_format_sort_fields': ('vcodec:h264', 'quality', 'size', 'br'),
             **author_info,
             'channel_url': format_field(author_info, 'channel_id', self._UPLOADER_URL_FORMAT, default=None),
             'uploader_url': format_field(
